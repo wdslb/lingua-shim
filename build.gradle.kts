@@ -60,7 +60,6 @@ plugins {
     id("com.github.johnrengelman.shadow") version "6.1.0"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
-    signing
     jacoco
 }
 
@@ -314,8 +313,61 @@ python {
     pip("numpy:1.20.0")
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("lingua") {
+            groupId = linguaGroupId
+            artifactId = linguaArtifactId
+            version = linguaVersion
+
+            from(components["kotlin"])
+
+            artifact(tasks["sourcesJar"])
+            artifact(tasks["jarWithDependencies"])
+            artifact(tasks["dokkaJavadocJar"])
+
+            pom {
+                name.set(linguaName)
+                description.set(linguaDescription)
+                url.set(linguaWebsiteUrl)
+
+                licenses {
+                    license {
+                        name.set(linguaLicenseName)
+                        url.set(linguaLicenseUrl)
+                    }
+                }
+                developers {
+                    developer {
+                        id.set(linguaDeveloperId)
+                        name.set(linguaDeveloperName)
+                        email.set(linguaDeveloperEmail)
+                        url.set(linguaDeveloperUrl)
+                    }
+                }
+                scm {
+                    connection.set(linguaScmConnection)
+                    developerConnection.set(linguaScmDeveloperConnection)
+                    url.set(linguaScmUrl)
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri(githubPackagesUrl)
+            credentials {
+                username = "wdslb"
+                password = project.findProperty("ghPackagesToken") as String?
+            }
+        }
+    }
+}
+
 repositories {
     maven { setUrl("https://repo.huaweicloud.com/repository/maven/") }
-    maven { setUrl("https://mirrors.cloud.tencent.com/nexus/repository/maven-public/") }
     mavenCentral()
+    maven { setUrl("https://mirrors.cloud.tencent.com/nexus/repository/maven-public/") }
 }
