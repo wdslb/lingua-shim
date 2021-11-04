@@ -314,69 +314,6 @@ python {
     pip("numpy:1.20.0")
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("lingua") {
-            groupId = linguaGroupId
-            artifactId = linguaArtifactId
-            version = linguaVersion
-
-            from(components["kotlin"])
-
-            artifact(tasks["sourcesJar"])
-            artifact(tasks["jarWithDependencies"])
-            artifact(tasks["dokkaJavadocJar"])
-
-            pom {
-                name.set(linguaName)
-                description.set(linguaDescription)
-                url.set(linguaWebsiteUrl)
-
-                licenses {
-                    license {
-                        name.set(linguaLicenseName)
-                        url.set(linguaLicenseUrl)
-                    }
-                }
-                developers {
-                    developer {
-                        id.set(linguaDeveloperId)
-                        name.set(linguaDeveloperName)
-                        email.set(linguaDeveloperEmail)
-                        url.set(linguaDeveloperUrl)
-                    }
-                }
-                scm {
-                    connection.set(linguaScmConnection)
-                    developerConnection.set(linguaScmDeveloperConnection)
-                    url.set(linguaScmUrl)
-                }
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri(githubPackagesUrl)
-            credentials {
-                username = linguaDeveloperId
-                password = project.findProperty("ghPackagesToken") as String?
-            }
-        }
-    }
-}
-
-nexusPublishing {
-    repositories {
-        sonatype()
-    }
-}
-
-signing {
-    sign(publishing.publications["lingua"])
-}
-
 repositories {
     maven { setUrl("https://repo.huaweicloud.com/repository/maven/") }
     maven { setUrl("https://mirrors.cloud.tencent.com/nexus/repository/maven-public/") }
