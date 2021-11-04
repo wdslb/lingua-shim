@@ -378,5 +378,7 @@ signing {
 }
 
 repositories {
+    maven { setUrl("https://repo.huaweicloud.com/repository/maven/") }
+    maven { setUrl("http://mirrors.cloud.tencent.com/nexus/repository/maven-public/") }
     mavenCentral()
 }
