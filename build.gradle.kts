@@ -367,7 +367,7 @@ publishing {
 }
 
 repositories {
-    maven { setUrl("https://repo.huaweicloud.com/repository/maven/") }
     mavenCentral()
+    maven { setUrl("https://repo.huaweicloud.com/repository/maven/") }
     maven { setUrl("https://mirrors.cloud.tencent.com/nexus/repository/maven-public/") }
 }
