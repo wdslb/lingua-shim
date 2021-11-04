@@ -17,25 +17,7 @@
 package com.github.pemistahl.lingua.report
 
 import com.github.pemistahl.lingua.api.IsoCode639_1
-import com.github.pemistahl.lingua.api.IsoCode639_1.AZ
-import com.github.pemistahl.lingua.api.IsoCode639_1.BS
-import com.github.pemistahl.lingua.api.IsoCode639_1.EO
-import com.github.pemistahl.lingua.api.IsoCode639_1.HY
-import com.github.pemistahl.lingua.api.IsoCode639_1.KA
-import com.github.pemistahl.lingua.api.IsoCode639_1.KK
 import com.github.pemistahl.lingua.api.IsoCode639_1.LA
-import com.github.pemistahl.lingua.api.IsoCode639_1.LG
-import com.github.pemistahl.lingua.api.IsoCode639_1.MI
-import com.github.pemistahl.lingua.api.IsoCode639_1.MN
-import com.github.pemistahl.lingua.api.IsoCode639_1.NB
-import com.github.pemistahl.lingua.api.IsoCode639_1.NN
-import com.github.pemistahl.lingua.api.IsoCode639_1.SN
-import com.github.pemistahl.lingua.api.IsoCode639_1.ST
-import com.github.pemistahl.lingua.api.IsoCode639_1.TN
-import com.github.pemistahl.lingua.api.IsoCode639_1.TS
-import com.github.pemistahl.lingua.api.IsoCode639_1.XH
-import com.github.pemistahl.lingua.api.IsoCode639_1.YO
-import com.github.pemistahl.lingua.api.IsoCode639_1.ZU
 import com.github.pemistahl.lingua.api.IsoCode639_3
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.CHINESE
@@ -267,7 +249,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }.toTypedArray()
 
         private val filteredIsoCodesForTikaAndOptimaize = languageIsoCodesToTest.filterNot {
-            it in setOf(AZ, BS, EO, HY, KA, KK, LA, LG, MI, MN, NB, NN, SN, ST, TN, TS, XH, YO, ZU)
+            it in setOf(LA)
         }.map { it.toString() }
 
         internal val linguaDetector by lazy {

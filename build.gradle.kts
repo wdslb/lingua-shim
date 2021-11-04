@@ -256,14 +256,14 @@ tasks.register<Jar>("dokkaJavadocJar") {
     dependsOn("dokkaJavadoc")
     group = "Build"
     description = "Assembles a jar archive containing Javadoc documentation."
-    classifier = "javadoc"
+    archiveClassifier.set("javadoc")
     from("$buildDir/dokka/javadoc")
 }
 
 tasks.register<Jar>("sourcesJar") {
     group = "Build"
     description = "Assembles a jar archive containing the main source code."
-    classifier = "sources"
+    archiveClassifier.set("sources")
     from("src/main/kotlin")
 }
 
@@ -277,7 +277,7 @@ tasks.register<ShadowJar>("jarWithDependencies") {
     dependsOn("relocateDependencies")
     group = "Build"
     description = "Assembles a jar archive containing the main classes and all external dependencies."
-    classifier = "with-dependencies"
+    archiveClassifier.set("with-dependencies")
     from(sourceSets.main.get().output)
     configurations = listOf(project.configurations.runtimeClasspath.get())
     manifest { attributes("Main-Class" to linguaMainClass) }
@@ -379,6 +379,6 @@ signing {
 
 repositories {
     maven { setUrl("https://repo.huaweicloud.com/repository/maven/") }
-    maven { setUrl("http://mirrors.cloud.tencent.com/nexus/repository/maven-public/") }
+    maven { setUrl("https://mirrors.cloud.tencent.com/nexus/repository/maven-public/") }
     mavenCentral()
 }

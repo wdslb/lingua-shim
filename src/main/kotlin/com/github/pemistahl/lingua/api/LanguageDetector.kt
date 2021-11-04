@@ -20,7 +20,6 @@ import com.github.pemistahl.lingua.api.Language.CHINESE
 import com.github.pemistahl.lingua.api.Language.JAPANESE
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.internal.Alphabet
-import com.github.pemistahl.lingua.internal.Constant.CHARS_TO_LANGUAGES_MAPPING
 import com.github.pemistahl.lingua.internal.Constant.JAPANESE_CHARACTER_SET
 import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_WHITESPACE
 import com.github.pemistahl.lingua.internal.Constant.NO_LETTER
@@ -29,7 +28,6 @@ import com.github.pemistahl.lingua.internal.Constant.PUNCTUATION
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
-import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.internal.util.extension.isLogogram
 import kotlinx.coroutines.Dispatchers
@@ -318,17 +316,6 @@ class LanguageDetector internal constructor(
         val mostFrequentAlphabet = detectedAlphabets.entries.maxByOrNull { it.value }!!.key
         val filteredLanguages = languages.filter { it.alphabets.contains(mostFrequentAlphabet) }
         val languageCounts = mutableMapOf<Language, Int>()
-
-        for (word in words) {
-            for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
-                if (word.containsAnyOf(characters)) {
-                    for (language in languages) {
-                        languageCounts.incrementCounter(language)
-                    }
-                    break
-                }
-            }
-        }
 
         val languagesSubset = languageCounts.filterValues { it >= words.size / 2.0 }.keys
 

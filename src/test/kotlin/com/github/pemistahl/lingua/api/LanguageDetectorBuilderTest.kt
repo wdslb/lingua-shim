@@ -102,11 +102,11 @@ class LanguageDetectorBuilderTest {
     fun `assert that LanguageDetector can be built from blacklist`() {
         run {
             val builder = LanguageDetectorBuilder.fromAllLanguagesWithout(
-                Language.TURKISH,
-                Language.ROMANIAN
+                Language.JAPANESE,
+                Language.KOREAN
             )
             val expectedLanguages = Language.values().toSet().minus(
-                arrayOf(Language.TURKISH, Language.ROMANIAN, Language.UNKNOWN)
+                arrayOf(Language.JAPANESE, Language.KOREAN, Language.UNKNOWN)
             ).toList()
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
@@ -130,9 +130,9 @@ class LanguageDetectorBuilderTest {
             )
         }
         run {
-            val languages = Language.values().toSet().minus(arrayOf(Language.GERMAN, Language.ENGLISH)).toTypedArray()
+            val languages = Language.values().toSet().minus(arrayOf(Language.CHINESE, Language.ENGLISH)).toTypedArray()
             assertThatIllegalArgumentException().isThrownBy {
-                LanguageDetectorBuilder.fromAllLanguagesWithout(Language.GERMAN, *languages)
+                LanguageDetectorBuilder.fromAllLanguagesWithout(Language.CHINESE, *languages)
             }.withMessage(minimumLanguagesErrorMessage)
         }
     }
@@ -140,8 +140,8 @@ class LanguageDetectorBuilderTest {
     @Test
     fun `assert that LanguageDetector can be built from whitelist`() {
         run {
-            val builder = LanguageDetectorBuilder.fromLanguages(Language.GERMAN, Language.ENGLISH)
-            val expectedLanguages = listOf(Language.GERMAN, Language.ENGLISH)
+            val builder = LanguageDetectorBuilder.fromLanguages(Language.CHINESE, Language.ENGLISH)
+            val expectedLanguages = listOf(Language.CHINESE, Language.ENGLISH)
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
@@ -165,7 +165,7 @@ class LanguageDetectorBuilderTest {
         }
         run {
             assertThatIllegalArgumentException().isThrownBy {
-                LanguageDetectorBuilder.fromLanguages(Language.GERMAN)
+                LanguageDetectorBuilder.fromLanguages(Language.ENGLISH)
             }.withMessage(minimumLanguagesErrorMessage)
         }
     }
@@ -173,8 +173,8 @@ class LanguageDetectorBuilderTest {
     @Test
     fun `assert that LanguageDetector can be built from iso codes`() {
         run {
-            val builder = LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.DE, IsoCode639_1.SV)
-            val expectedLanguages = listOf(Language.GERMAN, Language.SWEDISH)
+            val builder = LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.ZH, IsoCode639_1.EN)
+            val expectedLanguages = listOf(Language.CHINESE, Language.ENGLISH)
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
